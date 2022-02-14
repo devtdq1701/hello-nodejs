@@ -16,7 +16,7 @@ pipeline {
             }
         }
         stage ( 'SSH' ) {
-            step{
+            steps{
                 sshagent (credentials: ['prod-privatekey']) {
                     sh 'ssh -o StrictHostKeyChecking=no -l root 192.168.5.241 touch test.txt'
                 }
