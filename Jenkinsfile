@@ -15,12 +15,17 @@ pipeline {
                 }
             }
         }
-        stage ( 'SSH' ) {
+        stage( 'SSH' ) {
             steps{
                 sshagent (credentials: ['prod-privatekey']) {
                     sh 'ssh -o StrictHostKeyChecking=no -l root 192.168.5.241 touch test.txt'
                 }
             }
+        }
+    }
+    post {
+        success {
+            mail bcc: '', body: 'Build Successfully !!!', cc: 'quangtran.epu@gmail.com', from: '', replyTo: '', subject: 'Jenkins Notification', to: 'nnhuyenmyepu1701@gmail.com'
         }
     }
 }
