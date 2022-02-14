@@ -15,5 +15,12 @@ pipeline {
                 }
             }
         }
+        stage ( 'SSH' ) {
+            step{
+                sshagent (credentials: ['prod-privatekey']) {
+                    sh 'ssh -o StrictHostKeyChecking=no -l root 192.168.5.241 touch test.txt'
+                }
+            }
+        }
     }
 }
